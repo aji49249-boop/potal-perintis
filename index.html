@@ -1,0 +1,732 @@
+<title>Portal Perintis Perkasa</title>
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KXC0DSZ2F5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-KXC0DSZ2F5');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f5f2;
+    --surface:#ffffff;
+    --surface-2:#efece6;
+    --border:#e3ded5;
+    --ink:#18161a;
+    --ink-soft:#5b5760;
+    --ink-faint:#8a8590;
+    --accent:#d90b1c;
+    --accent-ink:#ffffff;
+    --accent-soft:#fbe6e4;
+    --accent-line:#f0c3bf;
+    --good:#1c7a4a;
+    --good-soft:#e2f3e8;
+    --info:#2f5fdb;
+    --info-soft:#e2e9fc;
+    --warn:#c2760d;
+    --warn-soft:#faecd4;
+    --violet:#7c3aed;
+    --violet-soft:#ede4fd;
+    --shadow:rgba(24,22,26,0.10);
+    --radius-lg:18px;
+    --radius-md:13px;
+    --font-display:'Archivo','Arial Narrow',sans-serif;
+    --font-body:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;
+    --sidebar-bg:#18151a;
+    --sidebar-bg-2:#231f26;
+    --sidebar-ink:#f4f2ef;
+    --sidebar-ink-soft:rgba(244,242,239,.6);
+    --sidebar-border:rgba(255,255,255,.09);
+    --sidebar-hover:rgba(255,255,255,.07);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#121013; --surface:#1b191d; --surface-2:#211e22; --border:#332f34;
+      --ink:#f2efec; --ink-soft:#b3aeb5; --ink-faint:#847f88;
+      --accent:#ff4438; --accent-ink:#171018; --accent-soft:#3a1614; --accent-line:#5c211d;
+      --good:#3fc383; --good-soft:#173325; --shadow:rgba(0,0,0,0.5);
+      --info:#6d94f5; --info-soft:#1c2748;
+      --warn:#f0a339; --warn-soft:#3c2a10;
+      --violet:#b18af8; --violet-soft:#2c2140;
+      --sidebar-bg:#1b181f; --sidebar-bg-2:#242029;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#121013; --surface:#1b191d; --surface-2:#211e22; --border:#332f34;
+    --ink:#f2efec; --ink-soft:#b3aeb5; --ink-faint:#847f88;
+    --accent:#ff4438; --accent-ink:#171018; --accent-soft:#3a1614; --accent-line:#5c211d;
+    --good:#3fc383; --good-soft:#173325; --shadow:rgba(0,0,0,0.5);
+    --info:#6d94f5; --info-soft:#1c2748;
+    --warn:#f0a339; --warn-soft:#3c2a10;
+    --violet:#b18af8; --violet-soft:#2c2140;
+    --sidebar-bg:#1b181f; --sidebar-bg-2:#242029;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:var(--font-display);letter-spacing:-0.01em;text-wrap:balance;margin:0;}
+  button{font-family:inherit;}
+  a{color:inherit;}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  /* ---------- Shell ---------- */
+  .app-shell{display:flex;min-height:100vh;}
+
+  .sidebar-backdrop{
+    position:fixed;inset:0;background:rgba(10,9,11,.45);
+    opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:35;
+  }
+  .sidebar-backdrop.show{opacity:1;pointer-events:auto;}
+
+  .sidebar{
+    width:264px;flex:none;background:linear-gradient(180deg,var(--sidebar-bg),var(--sidebar-bg-2));
+    border-right:1px solid var(--sidebar-border);
+    display:flex;flex-direction:column;padding:22px 16px;gap:6px;
+    position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;
+  }
+  .brand{display:flex;align-items:center;gap:11px;padding:2px 6px 16px;border-bottom:1px solid var(--sidebar-border);margin-bottom:8px;}
+  .brand-mark{
+    width:38px;height:38px;border-radius:11px;background:var(--accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;flex:none;
+    box-shadow:0 4px 14px -4px rgba(217,11,28,.55);
+  }
+  .brand-text strong{display:block;font-family:var(--font-display);font-weight:800;font-size:14.5px;color:var(--sidebar-ink);line-height:1.2;}
+  .brand-text span{display:block;font-size:11px;color:var(--sidebar-ink-soft);margin-top:2px;}
+
+  .nav-label{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--sidebar-ink-soft);padding:14px 10px 6px;}
+  .nav-label:first-of-type{padding-top:2px;}
+  .nav-item{
+    display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;
+    color:var(--sidebar-ink-soft);text-decoration:none;font-size:13.5px;font-weight:500;
+    position:relative;cursor:pointer;background:none;border:none;text-align:left;width:100%;
+  }
+  .nav-item svg{flex:none;}
+  .nav-count{margin-left:auto;font-family:var(--font-mono);font-size:11px;background:var(--sidebar-hover);color:var(--sidebar-ink-soft);border-radius:999px;padding:1px 8px;}
+  .nav-item:hover{background:var(--sidebar-hover);color:var(--sidebar-ink);}
+  .nav-item.active{background:var(--accent);color:#fff;font-weight:600;box-shadow:0 6px 16px -6px rgba(217,11,28,.6);}
+  .nav-item.active .nav-count{background:rgba(255,255,255,.25);color:#fff;}
+
+  .sidebar-foot{margin-top:auto;padding:14px 10px 4px;border-top:1px solid var(--sidebar-border);font-size:11.5px;color:var(--sidebar-ink-soft);line-height:1.55;}
+
+  .main{flex:1;min-width:0;display:flex;flex-direction:column;}
+
+  .topbar{
+    background:var(--surface);border-bottom:1px solid var(--border);
+    display:flex;align-items:center;gap:16px;padding:14px 28px;
+    position:sticky;top:0;z-index:6;flex-wrap:wrap;row-gap:10px;
+  }
+  .hamburger{
+    display:none;flex:none;width:36px;height:36px;border-radius:10px;border:1px solid var(--border);
+    background:var(--surface);color:var(--ink-soft);align-items:center;justify-content:center;cursor:pointer;
+  }
+  .topbar-title{min-width:0;}
+  .topbar-title h1{font-size:18.5px;font-weight:700;}
+  .topbar-title p{margin:2px 0 0;font-size:12.5px;color:var(--ink-soft);max-width:52ch;}
+  .topbar-actions{display:flex;align-items:center;gap:10px;margin-left:auto;flex-wrap:wrap;}
+
+  .search-box{position:relative;width:236px;max-width:100%;}
+  .search-box input{
+    width:100%;font-family:var(--font-body);font-size:13.5px;color:var(--ink);
+    background:var(--surface-2);border:1px solid transparent;border-radius:10px;
+    padding:9px 12px 9px 34px;outline:none;transition:border-color .15s ease, background .15s ease;
+  }
+  .search-box input:focus{background:var(--surface);border-color:var(--accent);}
+  .search-box svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--ink-faint);}
+
+  .status-chip{
+    display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--ink-soft);
+    background:var(--surface-2);border-radius:999px;padding:8px 12px;white-space:nowrap;
+  }
+  .dot-live{width:7px;height:7px;border-radius:50%;background:var(--good);flex:none;box-shadow:0 0 0 3px var(--good-soft);}
+
+  .content{padding:26px 28px 48px;display:flex;flex-direction:column;gap:24px;}
+
+  /* ---------- Stats ---------- */
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;}
+  .stat-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);
+    padding:16px 18px;display:flex;flex-direction:column;gap:9px;color:var(--ink);
+    box-shadow:0 10px 24px -18px var(--shadow);
+  }
+  .stat-icon{width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;flex:none;color:#fff;}
+  .stat-label{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-faint);}
+  .stat-value{font-family:var(--font-display);font-size:25px;font-weight:800;display:flex;align-items:center;gap:8px;}
+  .stat-card.c-red{background:linear-gradient(135deg,#e3182a,var(--accent));color:#fff;}
+  .stat-card.c-ink{background:linear-gradient(135deg,#2b2731,#151319);color:#fff;}
+  .stat-card.c-green{background:linear-gradient(135deg,#22935a,var(--good));color:#fff;}
+  .stat-card.c-amber{background:linear-gradient(135deg,#d98a1f,var(--warn));color:#fff;}
+  .stat-card.c-red .stat-label, .stat-card.c-ink .stat-label, .stat-card.c-green .stat-label, .stat-card.c-amber .stat-label{color:rgba(255,255,255,.78);}
+  .stat-card.c-red .stat-value, .stat-card.c-ink .stat-value, .stat-card.c-green .stat-value, .stat-card.c-amber .stat-value{color:#fff;}
+
+  /* ---------- Table ---------- */
+  .section-head{display:flex;flex-direction:column;gap:3px;}
+  .section-head h2{font-size:16px;font-weight:700;}
+  .section-head p{margin:0;font-size:12.5px;color:var(--ink-soft);}
+
+  .table-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
+  .table-scroll{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;min-width:680px;}
+  thead th{
+    text-align:left;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--ink-faint);background:var(--surface-2);padding:12px 18px;white-space:nowrap;font-weight:600;
+  }
+  tbody td{padding:14px 18px;border-top:1px solid var(--border);vertical-align:middle;font-size:13.5px;}
+  tbody tr:hover{background:var(--surface-2);}
+  .cell-app{display:flex;align-items:flex-start;gap:12px;min-width:220px;}
+  .row-icon{width:36px;height:36px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;}
+  .row-name{font-weight:600;color:var(--ink);}
+  .row-desc{font-size:12px;color:var(--ink-soft);margin-top:2px;max-width:36ch;line-height:1.45;}
+  .stage-pill{display:inline-block;background:var(--surface-2);color:var(--ink-soft);font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:999px;white-space:nowrap;}
+  tr[data-stage="proses"] .row-icon{background:var(--info-soft);color:var(--info);}
+  tr[data-stage="proses"] .stage-pill{background:var(--info-soft);color:var(--info);}
+  tr[data-stage="mra"] .row-icon{background:var(--warn-soft);color:var(--warn);}
+  tr[data-stage="mra"] .stage-pill{background:var(--warn-soft);color:var(--warn);}
+  tr[data-stage="monitoring"] .row-icon{background:var(--violet-soft);color:var(--violet);}
+  tr[data-stage="monitoring"] .stage-pill{background:var(--violet-soft);color:var(--violet);}
+  .cell-host{font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);white-space:nowrap;}
+  .status-pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--good);background:var(--good-soft);border-radius:999px;padding:4px 10px 4px 8px;white-space:nowrap;}
+  .status-pill span{width:6px;height:6px;border-radius:50%;background:var(--good);flex:none;}
+  .col-actions{white-space:nowrap;}
+  .icon-btn{
+    width:32px;height:32px;border-radius:9px;border:none;background:var(--surface-2);
+    color:var(--ink-soft);display:inline-flex;align-items:center;justify-content:center;margin-left:6px;
+    cursor:pointer;text-decoration:none;transition:filter .15s ease, transform .15s ease;
+  }
+  .icon-btn:first-child{margin-left:0;}
+  .icon-btn:hover{filter:brightness(1.08);transform:translateY(-1px);}
+  .icon-btn[data-action="info"]{background:var(--info);color:#fff;}
+  .icon-btn[data-action="copy"]{background:var(--warn);color:#fff;}
+  .icon-btn-accent{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .icon-btn-accent:hover{background:var(--accent);color:#fff;filter:brightness(1.08);}
+  .empty-row td{text-align:center;color:var(--ink-soft);padding:34px 18px;}
+
+  @media (prefers-reduced-motion: no-preference){
+    tbody tr{animation:rise .4s ease both;}
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ---------- Modal ---------- */
+  .modal-backdrop{
+    position:fixed;inset:0;background:rgba(10,9,11,.5);display:flex;align-items:center;justify-content:center;
+    padding:20px;z-index:50;opacity:0;pointer-events:none;transition:opacity .18s ease;
+  }
+  .modal-backdrop.open{opacity:1;pointer-events:auto;}
+  .modal{
+    background:var(--surface);border-radius:18px;max-width:420px;width:100%;overflow:hidden;
+    transform:translateY(10px) scale(.98);transition:transform .18s ease;
+    box-shadow:0 24px 60px -20px rgba(0,0,0,.4);
+  }
+  .modal-backdrop.open .modal{transform:translateY(0) scale(1);}
+  .modal-head{background:var(--accent);color:#fff;display:flex;align-items:center;gap:12px;padding:16px 18px;}
+  .modal-icon{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex:none;color:#fff;}
+  .modal-head h3{flex:1;font-size:16px;font-weight:700;color:#fff;min-width:0;}
+  .modal-close{background:rgba(255,255,255,.16);border:none;color:#fff;width:28px;height:28px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1;flex:none;}
+  .modal-body{padding:18px;}
+  .modal-body p{margin:0 0 14px;font-size:13.5px;color:var(--ink-soft);line-height:1.55;}
+  .modal-meta{display:flex;flex-direction:column;gap:8px;background:var(--surface-2);border-radius:12px;padding:12px 14px;}
+  .modal-meta div{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;}
+  .modal-meta span{color:var(--ink-faint);}
+  .modal-meta strong{color:var(--ink);font-weight:600;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .modal-foot{display:flex;gap:10px;padding:14px 18px 18px;}
+  .btn-ghost{flex:1;text-align:center;padding:10px;border-radius:11px;border:1px solid var(--border);background:var(--surface);color:var(--ink-soft);font-weight:600;font-size:13.5px;cursor:pointer;}
+  .btn-ghost:hover{background:var(--surface-2);}
+  .btn-primary{flex:1;text-align:center;padding:10px;border-radius:11px;border:none;background:var(--accent);color:#fff;font-weight:600;font-size:13.5px;text-decoration:none;display:block;}
+
+  /* ---------- Toast ---------- */
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translate(-50%,12px);
+    background:var(--surface);border:1px solid var(--border);box-shadow:0 14px 30px -10px var(--shadow);
+    border-radius:999px;padding:10px 18px 10px 12px;display:flex;align-items:center;gap:9px;
+    font-size:13px;font-weight:600;color:var(--ink);opacity:0;pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;z-index:60;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0);}
+  .toast-check{width:20px;height:20px;border-radius:50%;background:var(--good-soft);color:var(--good);display:flex;align-items:center;justify-content:center;flex:none;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:900px){
+    .hamburger{display:flex;}
+    .sidebar{
+      position:fixed;left:0;top:0;height:100dvh;transform:translateX(-100%);
+      transition:transform .22s ease;z-index:40;
+    }
+    .sidebar.open{transform:translateX(0);box-shadow:14px 0 34px -12px rgba(0,0,0,.3);}
+  }
+  @media (max-width:560px){
+    .topbar{padding:12px 16px;}
+    .content{padding:18px 16px 36px;}
+    .search-box{width:100%;order:3;}
+    .status-chip{order:2;}
+  }
+</style>
+
+<div class="sidebar-backdrop" id="backdrop"></div>
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14.5 3.5a4 4 0 00-5.4 4.9L3.6 13.8a1.8 1.8 0 002.6 2.6l5.4-5.5a4 4 0 004.9-5.4l-2.7 2.7-2-2 2.7-2.7z"></path>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <strong>Perintis Sistem&nbsp;Management</strong>
+        <span>Perintis Perkasa</span>
+      </div>
+    </div>
+
+    <nav>
+      <div class="nav-label">Menu</div>
+      <button class="nav-item active" data-view="all">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7.5" height="7.5" rx="1.5"></rect><rect x="13" y="3.5" width="7.5" height="7.5" rx="1.5"></rect><rect x="3.5" y="13" width="7.5" height="7.5" rx="1.5"></rect><rect x="13" y="13" width="7.5" height="7.5" rx="1.5"></rect></svg>
+        Dashboard
+      </button>
+
+      <div class="nav-label">Alur Servis</div>
+      <button class="nav-item" data-view="proses">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5a4 4 0 00-5.4 4.9L3.6 13.8a1.8 1.8 0 002.6 2.6l5.4-5.5a4 4 0 004.9-5.4l-2.7 2.7-2-2 2.7-2.7z"></path></svg>
+        Proses di Bengkel <span class="nav-count">3</span>
+      </button>
+      <button class="nav-item" data-view="mra">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5h16l-6 8v6.5l-4 1.5v-8L4 4.5z"></path></svg>
+        MRA Monitoring <span class="nav-count">3</span>
+      </button>
+      <button class="nav-item" data-view="monitoring">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"></circle><path d="M12 13l3.2-3.2"></path><path d="M12 5v1.6M12 20.4V22M20.4 13H22M2 13h1.6"></path></svg>
+        Monitoring &amp; Manajemen <span class="nav-count">1</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-foot">
+      Perintis Perkasa<br>Toyota Authorized Service &middot; v1.0
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="hamburger" id="hamburger" aria-label="Buka menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+      </button>
+      <div class="topbar-title">
+        <h1 id="view-title">Dashboard</h1>
+        <p id="view-desc">Ringkasan seluruh aplikasi yang terhubung dalam satu alur servis.</p>
+      </div>
+      <div class="topbar-actions">
+        <div class="search-box">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input id="search" type="text" placeholder="Cari aplikasi…" autocomplete="off">
+        </div>
+        <div class="status-chip"><span class="dot-live"></span>Semua aktif</div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <section class="stat-grid" id="stat-grid">
+        <div class="stat-card c-red">
+          <span class="stat-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7.5" height="7.5" rx="1.5"></rect><rect x="13" y="3.5" width="7.5" height="7.5" rx="1.5"></rect><rect x="3.5" y="13" width="7.5" height="7.5" rx="1.5"></rect><rect x="13" y="13" width="7.5" height="7.5" rx="1.5"></rect></svg></span>
+          <span class="stat-label">Aplikasi Terhubung</span>
+          <span class="stat-value">7</span>
+        </div>
+        <div class="stat-card c-ink">
+          <span class="stat-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h9"></path></svg></span>
+          <span class="stat-label">Tahap Alur Servis</span>
+          <span class="stat-value">3</span>
+        </div>
+        <div class="stat-card c-green">
+          <span class="stat-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+          <span class="stat-label">Status Sistem</span>
+          <span class="stat-value">Aktif</span>
+        </div>
+        <div class="stat-card c-amber">
+          <span class="stat-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"></rect><line x1="3.5" y1="9.5" x2="20.5" y2="9.5"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+          <span class="stat-label">Pembaruan Terakhir</span>
+          <span class="stat-value" style="font-size:18px;">12 Sep 2026</span>
+        </div>
+      </section>
+
+      <section class="section-head" id="section-head">
+        <h2>Semua Aplikasi</h2>
+        <p>Klik ikon mata untuk detail, atau buka langsung ke aplikasinya.</p>
+      </section>
+
+      <section class="table-card">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Aplikasi</th>
+                <th>Tahap</th>
+                <th>Tautan</th>
+                <th>Status</th>
+                <th class="col-actions">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="app-rows">
+
+              <tr class="app-row" data-stage="mra" data-stage-label="MRA Monitoring"
+                  data-name="Booking Online"
+                  data-desc="Pelanggan mengecek ketersediaan slot dan booking servis secara online, tanpa antre telepon."
+                  data-url="https://ketersediaan-slot-booking-servis-pe.vercel.app/"
+                  data-host="ketersediaan-slot-booking-servis-pe.vercel.app">
+                <td class="cell-app">
+                  <span class="row-icon">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"></rect><line x1="3.5" y1="9.5" x2="20.5" y2="9.5"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line><path d="M8.5 13.5l2 2 4-4"></path></svg>
+                  </span>
+                  <div>
+                    <div class="row-name">Booking Online</div>
+                    <div class="row-desc">Cek ketersediaan slot &amp; booking servis online.</div>
+                  </div>
+                </td>
+                <td><span class="stage-pill">MRA Monitoring</span></td>
+                <td class="cell-host">ketersediaan-slot-booking-servis-pe.vercel.app</td>
+                <td><span class="status-pill"><span></span>Aktif</span></td>
+                <td class="col-actions">
+                  <button class="icon-btn" data-action="info" aria-label="Detail Booking Online"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                  <button class="icon-btn" data-action="copy" aria-label="Salin tautan Booking Online"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11" height="11" rx="2"></rect><path d="M5.5 15.5h-1a2 2 0 01-2-2v-8a2 2 0 012-2h8a2 2 0 012 2v1"></path></svg></button>
+                  <a class="icon-btn icon-btn-accent" href="https://ketersediaan-slot-booking-servis-pe.vercel.app/" target="_blank" rel="noopener" aria-label="Buka Booking Online"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                </td>
+              </tr>
+
+              <tr class="app-row" data-stage="proses" data-stage-label="Proses di Bengkel"
+                  data-name="Key Drop"
+                  data-desc="Serah terima kunci kendaraan tercatat digital, meminimalkan kunci tertukar atau hilang saat jam sibuk."
+                  data-url="https://sunny-squirrel-fc44aa.netlify.app/"
+                  data-host="sunny-squirrel-fc44aa.netlify.app">
+                <td class="cell-app">
+                  <span class="row-icon">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8.5" r="3.25"></circle><path d="M10.3 10.8L19 19.5"></path><path d="M15.5 15L18 12.5"></path><path d="M17.7 17.2L20 14.9"></path></svg>
+                  </span>
+                  <div>
+                    <div class="row-name">Key Drop</div>
+                    <div class="row-desc">Serah terima kunci kendaraan servis digital.</div>
+                  </div>
+                </td>
+                <td><span class="stage-pill">Proses di Bengkel</span></td>
+                <td class="cell-host">sunny-squirrel-fc44aa.netlify.app</td>
+                <td><span class="status-pill"><span></span>Aktif</span></td>
+                <td class="col-actions">
+                  <button class="icon-btn" data-action="info" aria-label="Detail Key Drop"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                  <button class="icon-btn" data-action="copy" aria-label="Salin tautan Key Drop"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11" height="11" rx="2"></rect><path d="M5.5 15.5h-1a2 2 0 01-2-2v-8a2 2 0 012-2h8a2 2 0 012 2v1"></path></svg></button>
+                  <a class="icon-btn icon-btn-accent" href="https://sunny-squirrel-fc44aa.netlify.app/" target="_blank" rel="noopener" aria-label="Buka Key Drop"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                </td>
+              </tr>
+
+              <tr class="app-row" data-stage="proses" data-stage-label="Proses di Bengkel"
+                  data-name="Production Monitoring"
+                  data-desc="Papan produksi digital yang menampilkan progres tiap unit secara real-time ke seluruh tim bengkel."
+                  data-url="https://papan-produksi-perintis-perkasa.vercel.app/"
+                  data-host="papan-produksi-perintis-perkasa.vercel.app">
+                <td class="cell-app">
+                  <span class="row-icon">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2"></rect><line x1="7.5" y1="16" x2="7.5" y2="12.5"></line><line x1="12" y1="16" x2="12" y2="9"></line><line x1="16.5" y1="16" x2="16.5" y2="11"></line></svg>
+                  </span>
+                  <div>
+                    <div class="row-name">Production Monitoring</div>
+                    <div class="row-desc">Papan produksi digital progres unit di bengkel.</div>
+                  </div>
+                </td>
+                <td><span class="stage-pill">Proses di Bengkel</span></td>
+                <td class="cell-host">papan-produksi-perintis-perkasa.vercel.app</td>
+                <td><span class="status-pill"><span></span>Aktif</span></td>
+                <td class="col-actions">
+                  <button class="icon-btn" data-action="info" aria-label="Detail Production Monitoring"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                  <button class="icon-btn" data-action="copy" aria-label="Salin tautan Production Monitoring"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11" height="11" rx="2"></rect><path d="M5.5 15.5h-1a2 2 0 01-2-2v-8a2 2 0 012-2h8a2 2 0 012 2v1"></path></svg></button>
+                  <a class="icon-btn icon-btn-accent" href="https://papan-produksi-perintis-perkasa.vercel.app/" target="_blank" rel="noopener" aria-label="Buka Production Monitoring"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                </td>
+              </tr>
+
+              <tr class="app-row" data-stage="proses" data-stage-label="Proses di Bengkel"
+                  data-name="Antrian Digital Washing"
+                  data-desc="Nomor antrean pencucian ditampilkan digital, menjaga alur unit ke tahap akhir servis tetap rapi."
+                  data-url="https://antrian-washing.vercel.app/"
+                  data-host="antrian-washing.vercel.app">
+                <td class="cell-app">
+                  <span class="row-icon">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-2 3-3.2 4.9-3.2 6.9a3.2 3.2 0 106.4 0C15.2 7.9 14 6 12 3z"></path><rect x="4" y="15" width="16" height="6" rx="1.5"></rect><line x1="4" y1="18" x2="20" y2="18" stroke-dasharray="0.1 3.2"></line></svg>
+                  </span>
+                  <div>
+                    <div class="row-name">Antrian Digital Washing</div>
+                    <div class="row-desc">Nomor antrean pencucian mobil digital.</div>
+                  </div>
+                </td>
+                <td><span class="stage-pill">Proses di Bengkel</span></td>
+                <td class="cell-host">antrian-washing.vercel.app</td>
+                <td><span class="status-pill"><span></span>Aktif</span></td>
+                <td class="col-actions">
+                  <button class="icon-btn" data-action="info" aria-label="Detail Antrian Digital Washing"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                  <button class="icon-btn" data-action="copy" aria-label="Salin tautan Antrian Digital Washing"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11" height="11" rx="2"></rect><path d="M5.5 15.5h-1a2 2 0 01-2-2v-8a2 2 0 012-2h8a2 2 0 012 2v1"></path></svg></button>
+                  <a class="icon-btn icon-btn-accent" href="https://antrian-washing.vercel.app/" target="_blank" rel="noopener" aria-label="Buka Antrian Digital Washing"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                </td>
+              </tr>
+
+              <tr class="app-row" data-stage="mra" data-stage-label="MRA Monitoring"
+                  data-name="PSFU Digital"
+                  data-desc="Pencatatan Post Service Follow-Up ke pelanggan lebih rapi, memastikan tidak ada unit yang terlewat dihubungi."
+                  data-url="https://psfu-digital.vercel.app/"
+                  data-host="psfu-digital.vercel.app">
+                <td class="cell-app">
+                  <span class="row-icon">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 015.5 4h13A1.5 1.5 0 0120 5.5v9a1.5 1.5 0 01-1.5 1.5H9l-4 3.5V16H5.5A1.5 1.5 0 014 14.5v-9z"></path><path d="M8 8.75h8M8 12h5"></path></svg>
+                  </span>
+                  <div>
+                    <div class="row-name">PSFU Digital</div>
+                    <div class="row-desc">Pencatatan follow-up pelanggan purna servis.</div>
+                  </div>
+                </td>
+                <td><span class="stage-pill">MRA Monitoring</span></td>
+                <td class="cell-host">psfu-digital.vercel.app</td>
+                <td><span class="status-pill"><span></span>Aktif</span></td>
+                <td class="col-actions">
+                  <button class="icon-btn" data-action="info" aria-label="Detail PSFU Digital"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                  <button class="icon-btn" data-action="copy" aria-label="Salin tautan PSFU Digital"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11" height="11" rx="2"></rect><path d="M5.5 15.5h-1a2 2 0 01-2-2v-8a2 2 0 012-2h8a2 2 0 012 2v1"></path></svg></button>
+                  <a class="icon-btn icon-btn-accent" href="https://psfu-digital.vercel.app/" target="_blank" rel="noopener" aria-label="Buka PSFU Digital"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                </td>
+              </tr>
+
+              <tr class="app-row" data-stage="mra" data-stage-label="MRA Monitoring"
+                  data-name="MRA Report Funneling"
+                  data-desc="Dashboard funneling &amp; retensi Maintenance Reminder Alert untuk memantau efektivitas ajakan servis berikutnya."
+                  data-url="https://dashboard-funneling-retention.vercel.app/"
+                  data-host="dashboard-funneling-retention.vercel.app">
+                <td class="cell-app">
+                  <span class="row-icon">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5h16l-6 8v6.5l-4 1.5v-8L4 4.5z"></path></svg>
+                  </span>
+                  <div>
+                    <div class="row-name">MRA Report Funneling</div>
+                    <div class="row-desc">Dashboard funneling &amp; retensi MRA.</div>
+                  </div>
+                </td>
+                <td><span class="stage-pill">MRA Monitoring</span></td>
+                <td class="cell-host">dashboard-funneling-retention.vercel.app</td>
+                <td><span class="status-pill"><span></span>Aktif</span></td>
+                <td class="col-actions">
+                  <button class="icon-btn" data-action="info" aria-label="Detail MRA Report Funneling"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                  <button class="icon-btn" data-action="copy" aria-label="Salin tautan MRA Report Funneling"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11" height="11" rx="2"></rect><path d="M5.5 15.5h-1a2 2 0 01-2-2v-8a2 2 0 012-2h8a2 2 0 012 2v1"></path></svg></button>
+                  <a class="icon-btn icon-btn-accent" href="https://dashboard-funneling-retention.vercel.app/" target="_blank" rel="noopener" aria-label="Buka MRA Report Funneling"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                </td>
+              </tr>
+
+              <tr class="app-row" data-stage="monitoring" data-stage-label="Monitoring &amp; Manajemen"
+                  data-name="Pitwall AO Report"
+                  data-desc="Ruang pantau performa harian ala pit wall balap — satu layar untuk membaca laju operasional bengkel secara langsung."
+                  data-url="https://pitwalk-perintis.vercel.app/"
+                  data-host="pitwalk-perintis.vercel.app">
+                <td class="cell-app">
+                  <span class="row-icon">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"></circle><path d="M12 13l3.2-3.2"></path><path d="M12 5v1.6M12 20.4V22M20.4 13H22M2 13h1.6"></path></svg>
+                  </span>
+                  <div>
+                    <div class="row-name">Pitwall AO Report</div>
+                    <div class="row-desc">Dashboard performa harian bengkel real-time.</div>
+                  </div>
+                </td>
+                <td><span class="stage-pill">Monitoring &amp; Manajemen</span></td>
+                <td class="cell-host">pitwalk-perintis.vercel.app</td>
+                <td><span class="status-pill"><span></span>Aktif</span></td>
+                <td class="col-actions">
+                  <button class="icon-btn" data-action="info" aria-label="Detail Pitwall AO Report"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                  <button class="icon-btn" data-action="copy" aria-label="Salin tautan Pitwall AO Report"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11" height="11" rx="2"></rect><path d="M5.5 15.5h-1a2 2 0 01-2-2v-8a2 2 0 012-2h8a2 2 0 012 2v1"></path></svg></button>
+                  <a class="icon-btn icon-btn-accent" href="https://pitwalk-perintis.vercel.app/" target="_blank" rel="noopener" aria-label="Buka Pitwall AO Report"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                </td>
+              </tr>
+
+              <tr class="empty-row" id="empty-row" hidden><td colspan="5">Tidak ada aplikasi yang cocok. Coba kata kunci lain.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <div class="modal-head" id="modal-head">
+      <span class="modal-icon" id="modal-icon"></span>
+      <h3 id="modal-title">-</h3>
+      <button class="modal-close" id="modal-close" aria-label="Tutup">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p id="modal-desc">-</p>
+      <div class="modal-meta">
+        <div><span>Tahap</span><strong id="modal-stage">-</strong></div>
+        <div><span>Status</span><strong style="color:var(--good);">Aktif</strong></div>
+        <div><span>Tautan</span><strong id="modal-host">-</strong></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-ghost" id="modal-cancel">Tutup</button>
+      <a class="btn-primary" id="modal-open" href="#" target="_blank" rel="noopener">Buka Aplikasi</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <span class="toast-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+  <span id="toast-text">Tautan disalin</span>
+</div>
+
+<script>
+(function(){
+  var sidebar = document.getElementById('sidebar');
+  var backdrop = document.getElementById('backdrop');
+  var hamburger = document.getElementById('hamburger');
+  var navItems = Array.prototype.slice.call(document.querySelectorAll('.nav-item'));
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.app-row'));
+  var emptyRow = document.getElementById('empty-row');
+  var viewTitle = document.getElementById('view-title');
+  var viewDesc = document.getElementById('view-desc');
+  var sectionHead = document.getElementById('section-head');
+  var statGrid = document.getElementById('stat-grid');
+  var search = document.getElementById('search');
+
+  var STAGE_META = {
+    all:{title:'Dashboard', desc:'Ringkasan seluruh aplikasi yang terhubung dalam satu alur servis.', heading:'Semua Aplikasi', sub:'Klik ikon mata untuk detail, atau buka langsung ke aplikasinya.'},
+    proses:{title:'Proses di Bengkel', desc:'Sejak kunci diserahkan sampai unit selesai dikerjakan.', heading:'Aplikasi Proses di Bengkel', sub:'Klik ikon mata untuk detail, atau buka langsung ke aplikasinya.'},
+    mra:{title:'MRA Monitoring', desc:'Booking, follow-up, dan retensi pelanggan dipantau dalam satu kategori.', heading:'Aplikasi MRA Monitoring', sub:'Klik ikon mata untuk detail, atau buka langsung ke aplikasinya.'},
+    monitoring:{title:'Monitoring & Manajemen', desc:'Membaca laju operasional bengkel secara menyeluruh, kapan saja.', heading:'Aplikasi Monitoring & Manajemen', sub:'Klik ikon mata untuk detail, atau buka langsung ke aplikasinya.'}
+  };
+
+  var currentView = 'all';
+
+  function closeSidebar(){
+    sidebar.classList.remove('open');
+    backdrop.classList.remove('show');
+  }
+
+  function applyFilter(){
+    var q = search.value.trim().toLowerCase();
+    var visible = 0;
+    rows.forEach(function(row){
+      var matchesStage = currentView === 'all' || row.getAttribute('data-stage') === currentView;
+      var hay = (row.getAttribute('data-name') + ' ' + row.getAttribute('data-desc')).toLowerCase();
+      var matchesQuery = q === '' || hay.indexOf(q) !== -1;
+      var show = matchesStage && matchesQuery;
+      row.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    emptyRow.hidden = visible !== 0;
+  }
+
+  navItems.forEach(function(item){
+    item.addEventListener('click', function(){
+      var view = item.getAttribute('data-view');
+      currentView = view;
+      navItems.forEach(function(n){ n.classList.toggle('active', n === item); });
+      var meta = STAGE_META[view];
+      viewTitle.textContent = meta.title;
+      viewDesc.textContent = meta.desc;
+      sectionHead.querySelector('h2').textContent = meta.heading;
+      sectionHead.querySelector('p').textContent = meta.sub;
+      statGrid.style.display = view === 'all' ? '' : 'none';
+      applyFilter();
+      closeSidebar();
+      gtag('event', 'view_menu', { menu_name: meta.title });
+    });
+  });
+
+  search.addEventListener('input', applyFilter);
+
+  hamburger.addEventListener('click', function(){
+    sidebar.classList.add('open');
+    backdrop.classList.add('show');
+  });
+  backdrop.addEventListener('click', closeSidebar);
+
+  /* ---- Detail modal ---- */
+  var modalBackdrop = document.getElementById('modal-backdrop');
+  var modalHead = document.getElementById('modal-head');
+  var modalIcon = document.getElementById('modal-icon');
+  var modalTitle = document.getElementById('modal-title');
+  var modalDesc = document.getElementById('modal-desc');
+  var modalStage = document.getElementById('modal-stage');
+  var modalHost = document.getElementById('modal-host');
+  var modalOpen = document.getElementById('modal-open');
+
+  var STAGE_COLOR = { pra:'var(--accent)', proses:'var(--info)', mra:'var(--warn)', monitoring:'var(--violet)' };
+
+  function openModal(row){
+    modalIcon.innerHTML = row.querySelector('.row-icon').innerHTML;
+    modalTitle.textContent = row.getAttribute('data-name');
+    modalDesc.textContent = row.getAttribute('data-desc');
+    modalStage.textContent = row.getAttribute('data-stage-label');
+    modalHost.textContent = row.getAttribute('data-host');
+    modalHost.title = row.getAttribute('data-host');
+    modalOpen.href = row.getAttribute('data-url');
+    modalHead.style.background = STAGE_COLOR[row.getAttribute('data-stage')] || 'var(--accent)';
+    modalBackdrop.classList.add('open');
+  }
+  function closeModal(){ modalBackdrop.classList.remove('open'); }
+
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal-cancel').addEventListener('click', closeModal);
+  modalBackdrop.addEventListener('click', function(e){ if (e.target === modalBackdrop) closeModal(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
+
+  /* ---- Copy link + toast ---- */
+  var toast = document.getElementById('toast');
+  var toastText = document.getElementById('toast-text');
+  var toastTimer = null;
+
+  function showToast(text){
+    toastText.textContent = text;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2200);
+  }
+
+  function copyText(text){
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+    return Promise.resolve();
+  }
+
+  rows.forEach(function(row){
+    row.querySelector('[data-action="info"]').addEventListener('click', function(){ openModal(row); });
+    row.querySelector('[data-action="copy"]').addEventListener('click', function(){
+      var url = row.getAttribute('data-url');
+      copyText(url).then(function(){
+        showToast('Tautan ' + row.getAttribute('data-name') + ' disalin');
+      }).catch(function(){
+        showToast('Gagal menyalin tautan');
+      });
+    });
+    row.querySelector('.icon-btn-accent').addEventListener('click', function(){
+      gtag('event', 'open_app', {
+        app_name: row.getAttribute('data-name'),
+        stage_name: row.getAttribute('data-stage-label')
+      });
+    });
+  });
+
+  modalOpen.addEventListener('click', function(){
+    gtag('event', 'open_app', {
+      app_name: modalTitle.textContent,
+      stage_name: modalStage.textContent,
+      source: 'modal'
+    });
+  });
+})();
+</script>
