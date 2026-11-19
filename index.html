@@ -140,12 +140,12 @@
     </div>
 
     <div class="menu-label">MENU</div>
-    <div class="menu-item active"><span><span class="ico">▦</span>Dashboard</span></div>
+    <div class="menu-item active" data-cat="all" onclick="filterApps('all')"><span><span class="ico">▦</span>Dashboard</span></div>
 
     <div class="menu-label">ALUR SERVIS</div>
-    <div class="menu-item"><span><span class="ico">🔧</span>Proses di Bengkel</span><span class="count">4</span></div>
-    <div class="menu-item"><span><span class="ico">🔻</span>MRA Monitoring</span><span class="count">4</span></div>
-    <div class="menu-item"><span><span class="ico">🛠</span>Monitoring &amp; Manajemen</span><span class="count">0</span></div>
+    <div class="menu-item" data-cat="bengkel" onclick="filterApps('bengkel')"><span><span class="ico">🔧</span>Proses di Bengkel</span><span class="count">4</span></div>
+    <div class="menu-item" data-cat="mra" onclick="filterApps('mra')"><span><span class="ico">🔻</span>MRA Monitoring</span><span class="count">4</span></div>
+    <div class="menu-item" data-cat="monitoring" onclick="filterApps('monitoring')"><span><span class="ico">🛠</span>Monitoring &amp; Manajemen</span><span class="count">0</span></div>
 
     <div class="menu-label">TIM</div>
     <div class="menu-item"><span><span class="ico">👥</span>HPS</span><span class="count">4</span></div>
@@ -164,7 +164,7 @@
       </div>
       <div class="top-actions">
         <input class="search" placeholder="🔍  Cari aplikasi..." />
-        <div class="pill"><span class="dot"></span> Semua</div>
+        <div class="pill" onclick="filterApps('all')" style="cursor:pointer;"><span class="dot"></span> Semua</div>
       </div>
     </div>
 
@@ -187,8 +187,8 @@
       </div>
     </div>
 
-    <h2 class="section-title">Semua Aplikasi</h2>
-    <p class="section-sub">Klik ikon mata untuk detail, atau buka langsung ke aplikasinya.</p>
+    <h2 class="section-title" id="sectionTitle">Semua Aplikasi</h2>
+    <p class="section-sub" id="sectionSub">Klik ikon mata untuk detail, atau buka langsung ke aplikasinya.</p>
 
     <table>
       <thead>
@@ -201,7 +201,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr data-cat="mra">
           <td class="app-cell">
             <div class="app-ico">📅</div>
             <div>
@@ -218,7 +218,7 @@
             <a class="a-open" href="https://ketersediaan-slot-booking-servis-pe.vercel.app" target="_blank" title="Buka">↗</a>
           </td>
         </tr>
-        <tr>
+        <tr data-cat="bengkel">
           <td class="app-cell">
             <div class="app-ico">🔑</div>
             <div>
@@ -235,7 +235,7 @@
             <a class="a-open" href="https://key-drop-perintis.vercel.app" target="_blank" title="Buka">↗</a>
           </td>
         </tr>
-        <tr>
+        <tr data-cat="bengkel">
           <td class="app-cell">
             <div class="app-ico">📊</div>
             <div>
@@ -252,7 +252,7 @@
             <a class="a-open" href="https://papan-produksi-perintis-perkasa.vercel.app" target="_blank" title="Buka">↗</a>
           </td>
         </tr>
-        <tr>
+        <tr data-cat="bengkel">
           <td class="app-cell">
             <div class="app-ico">🧼</div>
             <div>
@@ -269,7 +269,7 @@
             <a class="a-open" href="https://antrian-washing.vercel.app" target="_blank" title="Buka">↗</a>
           </td>
         </tr>
-        <tr class="highlight">
+        <tr class="highlight" data-cat="bengkel">
           <td class="app-cell">
             <div class="app-ico">🚗</div>
             <div>
@@ -286,7 +286,7 @@
             <a class="a-open" href="https://cr7-nu.vercel.app" target="_blank" title="Buka">↗</a>
           </td>
         </tr>
-        <tr>
+        <tr data-cat="mra">
           <td class="app-cell">
             <div class="app-ico">💬</div>
             <div>
@@ -303,7 +303,7 @@
             <a class="a-open" href="https://psfu-digital.vercel.app" target="_blank" title="Buka">↗</a>
           </td>
         </tr>
-        <tr>
+        <tr data-cat="mra">
           <td class="app-cell">
             <div class="app-ico">📈</div>
             <div>
@@ -320,7 +320,7 @@
             <a class="a-open" href="https://dashboard-funneling-retention.vercel.app" target="_blank" title="Buka">↗</a>
           </td>
         </tr>
-        <tr class="highlight">
+        <tr class="highlight" data-cat="mra">
           <td class="app-cell">
             <div class="app-ico">🔔</div>
             <div>
@@ -339,7 +339,39 @@
         </tr>
       </tbody>
     </table>
+    <p id="emptyState" style="display:none;color:var(--muted);font-size:13px;padding:20px 4px;">Belum ada aplikasi pada kategori ini.</p>
   </main>
 </div>
+
+<script>
+  var catLabels = {
+    all: 'Semua Aplikasi',
+    bengkel: 'Proses di Bengkel',
+    mra: 'MRA Monitoring',
+    monitoring: 'Monitoring & Manajemen'
+  };
+
+  function filterApps(cat){
+    var rows = document.querySelectorAll('tbody tr');
+    var visibleCount = 0;
+    rows.forEach(function(row){
+      var show = (cat === 'all') || (row.getAttribute('data-cat') === cat);
+      row.style.display = show ? '' : 'none';
+      if (show) visibleCount++;
+    });
+
+    document.getElementById('emptyState').style.display = visibleCount === 0 ? 'block' : 'none';
+    document.querySelector('table').style.display = visibleCount === 0 ? 'none' : 'table';
+
+    document.getElementById('sectionTitle').textContent = catLabels[cat] || 'Semua Aplikasi';
+    document.getElementById('sectionSub').textContent = cat === 'all'
+      ? 'Klik ikon mata untuk detail, atau buka langsung ke aplikasinya.'
+      : 'Menampilkan ' + visibleCount + ' aplikasi pada kategori ini.';
+
+    document.querySelectorAll('.menu-item[data-cat]').forEach(function(item){
+      item.classList.toggle('active', item.getAttribute('data-cat') === cat);
+    });
+  }
+</script>
 </body>
 </html>
