@@ -145,10 +145,10 @@
     <div class="menu-label">ALUR SERVIS</div>
     <div class="menu-item" data-cat="bengkel" onclick="filterApps('bengkel')"><span><span class="ico">🔧</span>Proses di Bengkel</span><span class="count">4</span></div>
     <div class="menu-item" data-cat="mra" onclick="filterApps('mra')"><span><span class="ico">🔻</span>MRA Monitoring</span><span class="count">4</span></div>
-    <div class="menu-item" data-cat="monitoring" onclick="filterApps('monitoring')"><span><span class="ico">🛠</span>Monitoring &amp; Manajemen</span><span class="count">0</span></div>
+    <div class="menu-item" data-cat="monitoring" onclick="filterApps('monitoring')"><span><span class="ico">🛠</span>Monitoring &amp; Manajemen</span><span class="count">2</span></div>
 
     <div class="menu-label">TIM</div>
-    <div class="menu-item"><span><span class="ico">👥</span>HPS</span><span class="count">4</span></div>
+    <div class="menu-item" data-cat="hps" onclick="filterApps('hps')"><span><span class="ico">👥</span>HPS</span><span class="count">4</span></div>
 
     <div class="sidebar-footer">
       Perintis Perkasa<br/>
@@ -171,7 +171,7 @@
     <div class="stats">
       <div class="stat red">
         <div class="icon">▦</div>
-        <div><div class="label">Aplikasi Terhubung</div><div class="value">8</div></div>
+        <div><div class="label">Aplikasi Terhubung</div><div class="value">10</div></div>
       </div>
       <div class="stat black">
         <div class="icon">≡</div>
@@ -183,7 +183,7 @@
       </div>
       <div class="stat orange">
         <div class="icon">📅</div>
-        <div><div class="label">Pembaruan Terakhir</div><div class="value">12 Nov 2026</div></div>
+        <div><div class="label">Pembaruan Terakhir</div><div class="value">24 Nov 2026</div></div>
       </div>
     </div>
 
@@ -337,6 +337,40 @@
             <a class="a-open" href="https://reminder-mra-sa.vercel.app" target="_blank" title="Buka">↗</a>
           </td>
         </tr>
+        <tr class="highlight" data-cat="monitoring">
+          <td class="app-cell">
+            <div class="app-ico">🏁</div>
+            <div>
+              <div class="app-name">Pit Wall - Adam Malik</div>
+              <div class="app-desc">Dashboard performa bengkel: target cabang (CPUS, TMO, PART, REV), TCARE Retention, Top Performer, Tim Teknisi &amp; SA, ringkasan OPL Bahan.</div>
+            </div>
+          </td>
+          <td><span class="tag monitoring">Monitoring &amp; Manajemen</span></td>
+          <td class="link">pitwalk-perintis.vercel.app</td>
+          <td><span class="status"><span class="dot"></span>Aktif</span></td>
+          <td class="actions">
+            <a class="a-view" href="https://pitwalk-perintis.vercel.app" target="_blank" title="Lihat">👁</a>
+            <a class="a-copy" href="#" title="Salin tautan">⧉</a>
+            <a class="a-open" href="https://pitwalk-perintis.vercel.app" target="_blank" title="Buka">↗</a>
+          </td>
+        </tr>
+        <tr class="highlight" data-cat="monitoring">
+          <td class="app-cell">
+            <div class="app-ico">📈</div>
+            <div>
+              <div class="app-name">Management Graph 2026</div>
+              <div class="app-desc">Dashboard realisasi vs target 2026 (CPUS, TMO, Revenue Part, Unit Entry, Revenue Total) untuk bengkel &amp; suku cadang, data live dari Google Sheets.</div>
+            </div>
+          </td>
+          <td><span class="tag monitoring">Monitoring &amp; Manajemen</span></td>
+          <td class="link">management-graph-2026.vercel.app</td>
+          <td><span class="status"><span class="dot"></span>Aktif</span></td>
+          <td class="actions">
+            <a class="a-view" href="https://management-graph-2026.vercel.app" target="_blank" title="Lihat">👁</a>
+            <a class="a-copy" href="#" title="Salin tautan">⧉</a>
+            <a class="a-open" href="https://management-graph-2026.vercel.app" target="_blank" title="Buka">↗</a>
+          </td>
+        </tr>
       </tbody>
     </table>
     <p id="emptyState" style="display:none;color:var(--muted);font-size:13px;padding:20px 4px;">Belum ada aplikasi pada kategori ini.</p>
@@ -348,7 +382,8 @@
     all: 'Semua Aplikasi',
     bengkel: 'Proses di Bengkel',
     mra: 'MRA Monitoring',
-    monitoring: 'Monitoring & Manajemen'
+    monitoring: 'Monitoring & Manajemen',
+    hps: 'Tim HPS'
   };
 
   function filterApps(cat){
